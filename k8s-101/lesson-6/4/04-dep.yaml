@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: demo-ns
+  labels:
+    app: nginx
+spec:
+  replicas: 20
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - nginx
+                topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: nginx
+          image: k8s.gcr.io/hpa-example
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: demo-ns
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
