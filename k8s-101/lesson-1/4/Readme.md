@@ -42,4 +42,7 @@ exit
 ```
 
 ## remove ns with laba
+
+```
 kubectl delete ns deploy-ns
+```

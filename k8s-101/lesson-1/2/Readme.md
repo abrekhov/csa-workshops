@@ -8,7 +8,7 @@ cd ../2/
 
 ```bash
 kubectl apply -f 2-ns-svc.yaml
-watch kubectl describe svc nginx -n demo-ns
+kubectl describe svc nginx -n demo-ns
 ```
 
 ## create a pod with an error
@@ -30,7 +30,7 @@ kubectl apply -f 2-po-correct.yaml
 ## create busybox inside default namespace
 
 ```bash
-kubectl run -i --tty busybox --image=yauritux/busybox-curl --restart=Never -- sh
+kubectl run -i --tty busybox --rm -n default --image=yauritux/busybox-curl --restart=Never -- sh
 ```
 
 execute a service request from within
@@ -50,7 +50,7 @@ exit
 ## create busybox inside service namespace
 
 ```
-kubectl run -i --tty busybox -n demo-ns --image=yauritux/busybox-curl --restart=Never -- sh
+kubectl run -i --tty busybox --rm -n demo-ns --image=yauritux/busybox-curl --restart=Never -- sh
 ```
 
 execute a service request from within
