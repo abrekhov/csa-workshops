@@ -15,7 +15,7 @@ kubectl apply -f 4-deploy-v1.yaml
 We start a request for v1 of the service
 
 ```
-kubectl run -i --tty busybox -n deploy-ns --image=yauritux/busybox-curl --restart=Never -- sh
+kubectl run -i --tty busybox --rm -n deploy-ns --image=yauritux/busybox-curl --restart=Never -- sh
 ```
 we carry out from within
 ```

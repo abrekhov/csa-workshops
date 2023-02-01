@@ -22,4 +22,6 @@ watch kubectl get rs
 we complete the lab
 ```
 kubectl delete rs nginx
+kubectl delete svc nginx
+
 ```
