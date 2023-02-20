@@ -31,7 +31,7 @@ kubectl label namespace/prod purpose=production
 Let's make a request from `dev` it will pass:
 
 ```sh
-$ kubectl run --generator=run-pod/v1 test-$RANDOM --namespace=dev --rm -i -t --image=alpine -- sh
+kubectl run --namespace dev --rm -ti --image alpine alpine -- sh
 If you dont see a command prompt, try pressing enter.
 / # wget -qO- --timeout=2 http://web.default
 <!DOCTYPE html>
