@@ -25,7 +25,7 @@ kubectl apply -f 4-ns-po.yaml
 ## Set the ingress resource
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion:  networking.k8s.io/v1
 kind: Ingress
 metadata:
    name: nginx

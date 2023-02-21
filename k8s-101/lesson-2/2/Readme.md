@@ -27,7 +27,7 @@ kubectl apply -f 2-svc.yaml
 ## we see that endpoints did not appear in describe
 
 ```sh
-$ kubectl describe service/nginx -n demo-ns | grep Endpoints
+kubectl describe service/nginx -n demo-ns | grep Endpoints
 Endpoints: <none>
 ```
 ## trying to knock on the service inside the netspace without a pod
@@ -49,7 +49,7 @@ kubectl apply -f 2-pod.yaml
 
 ## we see that endpoints appeared in describe
 ```sh
-nrkk-osx:2 nrkk$ kubectl describe service/nginx -n demo-ns | grep Endpoints
+kubectl describe service/nginx -n demo-ns | grep Endpoints
 
 Endpoints: 10.160.0.152:80
 ```
