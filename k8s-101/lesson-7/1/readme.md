@@ -60,7 +60,7 @@ yc managed-kubernetes cluster get-credentials --context-name=k8s-sa --id cateqfn
 
 Now everything works out
 ```
-$ kubectl get nodes
+kubectl get nodes
 NAME STATUS ROLES AGE VERSION
 cl1a8efj57gn5ccs1gfv-ujiq Ready <none> 14d v1.17.8
 cl1fu7golamsfv2f3to0-ojeh Ready <none> 14d v1.17.8

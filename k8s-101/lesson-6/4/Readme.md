@@ -18,7 +18,7 @@ Let's see that we initially have 2 nodes
 We will see that the nodes have increased
 
 ```sh
-nrkk-osx:4 nrkk$ kubectl get nodes
+kubectl get nodes
 NAME STATUS ROLES AGE VERSION
 cl1a8efj57gn5ccs1gfv-iwuw Ready <none> 74s v1.17.8
 cl1a8efj57gn5ccs1gfv-okic Ready
@@ -34,7 +34,7 @@ Find a pod in the Pending status
 
 
 ```sh
-$ kubectl get po -n demo-ns
+kubectl get po -n demo-ns
 NAME READY STATUS RESTARTS AGE
 nginx-fb59c6944-2ppgl 0/1 Pending 0 4s
 ```
@@ -42,7 +42,7 @@ nginx-fb59c6944-2ppgl 0/1 Pending 0 4s
 Let's take a look at his log.
 
 ```sh
-nrkk-osx:4 nrkk$ kubectl describe po nginx-fb59c6944-525nm -n demo-ns
+kubectl describe po nginx-fb59c6944-525nm -n demo-ns
 ```
 
 ```sh
@@ -61,7 +61,7 @@ events:
 We will see that the nodes have increased
 
 ```sh
-nrkk-osx:4 nrkk$ kubectl get nodes
+kubectl get nodes
 NAME STATUS ROLES AGE VERSION
 cl1a8efj57gn5ccs1gfv-iwuw Ready <none> 74s v1.17.8
 cl1a8efj57gn5ccs1gfv-okic Ready <none> 79s v1.17.8

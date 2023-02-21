@@ -31,11 +31,11 @@ Events: <none>
 Let's look at the neighboring node
 
 ```
-$ kubectl get nodes
+kubectl get nodes
 NAME STATUS ROLES AGE VERSION
 cl14607bcn1714k4v3im-ahyn Ready <none> 13d v1.17.8
 
-$ kubectl describe node cl14607bcn1714k4v3im-ahyn
+kubectl describe node cl14607bcn1714k4v3im-ahyn
 ```
 It has no overcommit
 

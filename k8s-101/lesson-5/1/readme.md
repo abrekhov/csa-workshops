@@ -25,7 +25,7 @@ kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-local-data 
 We will see that everything has left a pack
 
 ```
-$ kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-local-data --force=True
+kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-local-data --force=True
 WARNING: the server could not find the requested resource: calico-node-ngpbz, ip-masq-agent-gcrmr, kube-proxy-nklzl, npd-v0.8.0-zjjg2, yc-disk-csi-node-v2-7vdqn
 pod/calico-node-ngpbz evicted
 pod/yc-disk-csi-node-v2-7vdqn evicted
@@ -65,7 +65,7 @@ kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-local-data 
 We will see that there are messages that eviction cannot be done
 
 ```
-$ kubectl drain cl14607bcn1714k4v3im-ahyn --ignore-daemonsets --delete-local-data --force=True
+kubectl drain cl14607bcn1714k4v3im-ahyn --ignore-daemonsets --delete-local-data --force=True
 node/cl14607bcn1714k4v3im-ahyn cordoned
 WARNING: the server could not find the requested resource: calico-node-wqspc, ip-masq-agent-dl5hp, kube-proxy-df4fs, npd-v0.8.0-2k242, yc-disk-csi-node-v2-jzr9p
 pod/calico-node-wqspc evicted
@@ -80,7 +80,7 @@ pod/nginx-58b77f84b5-vhtzs evicted
 pod/nginx-58b77f84b5-rzgq8 evicted
 pod/nginx-58b77f84b5-g8q8v evicted
 node/cl14607bcn1714k4v3im-ahyn evicted
-$ kubectl uncordon cl14607bcn1714k4v3im-ahyn
+kubectl uncordon cl14607bcn1714k4v3im-ahyn
 ```
 
 

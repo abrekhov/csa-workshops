@@ -62,7 +62,7 @@ spec:
 ```
 
 ```sh
-$ kubectl apply -f 01-web-allow-prod.yaml
+kubectl apply -f 01-web-allow-prod.yaml
 networkpolicy "web-allow-prod" created
 ```
 

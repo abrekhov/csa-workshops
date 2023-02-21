@@ -49,14 +49,14 @@ kubectl scale deployment nginx --replicas=2 -n demo-ns
 see this picture
 
 ```sh
-nrkk-osx:1 nrkk$ kubectl get po -n demo-ns
+kubectl get po -n demo-ns
 NAME READY STATUS RESTARTS AGE
 nginx-5984b8457-88qzg 1/1 Running 0 35m
 nginx-5984b8457-s5blg 0/1 ContainerCreating 0 33m
 ```
 
 ```sh
-nrkk-osx:1 nrkk$ kubectl describe po nginx-5984b8457-s5blg -n demo-ns
+kubectl describe po nginx-5984b8457-s5blg -n demo-ns
 ...
    Warning FailedAttachVolume 33m attachdetach-controller Multi-Attach error for volume "pvc-4ff05376-46e2-4f34-9caa-2e67e387cc46" Volume is already used by pod(s) nginx-5984b8457-88qzg
 ```

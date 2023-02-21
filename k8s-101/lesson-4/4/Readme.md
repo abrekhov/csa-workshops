@@ -15,9 +15,9 @@ In general, it is necessary that your domain name be resolved on the Internet to
 For example, I will use the k-101.app.nrk.me.uk domain, which resolves to 84.201.128.53
 
 ```sh
-nrkk-osx:3 nrkk$ echo $INGRESS_IP
+echo $INGRESS_IP
 84.201.128.53
-nrkk-osx:3 nrkk$ dig k-101.app.nrk.me.uk | grep $INGRESS_IP
+dig k-101.app.nrk.me.uk | grep $INGRESS_IP
 k-101.app.nrk.me.uk. 299 IN A 84.201.128.53
 ```
 ## Install cert-manager
@@ -52,7 +52,7 @@ We are waiting for our certificate to be successfully issued
 
 
 ```sh
-nrkk-osx:4 nrkk$ kubectl describe certificate echo-tls -n demo-ns
+kubectl describe certificate echo-tls -n demo-ns
 
 events:
    Type Reason Age From Message
@@ -65,7 +65,7 @@ events:
 
 Checking
 ```sh
-nrkk-osx:4 nrkk$ echo | openssl s_client -showcerts -servername ${DOMAIN_NAME} -connect ${DOMAIN_NAME}:443 2>/dev/null | openssl x509 -inform pem -noout -text | grep Subject:
+echo | openssl s_client -showcerts -servername ${DOMAIN_NAME} -connect ${DOMAIN_NAME}:443 2>/dev/null | openssl x509 -inform pem -noout -text | grep Subject:
          Subject: CN=k-101.app.nrk.me.uk:
 
 ```
