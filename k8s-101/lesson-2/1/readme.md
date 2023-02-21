@@ -81,7 +81,7 @@ wget: download timed out
 Let's make a request from `prod` it will pass:
 
 ```sh
-kubectl run --namespace dev --rm -ti --image alpine alpine -- sh
+kubectl run --namespace prod --rm -ti --image alpine alpine -- sh
 If you don't see a command prompt, try pressing enter.
 / # wget -qO- --timeout=2 http://web.default
 <!DOCTYPE html>
