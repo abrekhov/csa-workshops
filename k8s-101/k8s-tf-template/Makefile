@@ -2,6 +2,8 @@
 
 source:
 	. ./init-env.sh
+init: source
+	terraform init
 plan: source
 	terraform plan 
 apply: source
