@@ -29,7 +29,7 @@ spec:
       port: 80
       targetPort: 80
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
@@ -41,7 +41,10 @@ spec:
     - host: test.example
       http:
         paths:
-          - backend:
-              serviceName: nginx
-              servicePort: 80
-            path: /
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: 80

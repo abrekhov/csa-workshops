@@ -12,10 +12,13 @@ spec:
     - <DOMAIN_NAME>
     secretName: echo-tls
   rules:
-  - host: <DOMAIN_NAME>
-    http:
-      paths:
-      - backend:
-          serviceName: nginx
-          servicePort: 80
-        path: /
+    - host: <DOMAIN_NAME>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: 80
