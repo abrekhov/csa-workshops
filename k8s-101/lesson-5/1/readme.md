@@ -64,8 +64,8 @@ kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-emptydir-da
 
 We will see that there are messages that eviction cannot be done
 
-```
-kubectl drain cl14607bcn1714k4v3im-ahyn --ignore-daemonsets --delete-local-data --force=True
+```sh
+kubectl drain cl14607bcn1714k4v3im-ahyn --ignore-daemonsets --delete-emptydir-data --force=True
 node/cl14607bcn1714k4v3im-ahyn cordoned
 WARNING: the server could not find the requested resource: calico-node-wqspc, ip-masq-agent-dl5hp, kube-proxy-df4fs, npd-v0.8.0-2k242, yc-disk-csi-node-v2-jzr9p
 pod/calico-node-wqspc evicted
