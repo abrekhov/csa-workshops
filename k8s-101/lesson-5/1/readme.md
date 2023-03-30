@@ -59,7 +59,7 @@ watch kubectl get po -o wide -n demo-ns -o=custom-columns=NAME:.metadata.name,no
 
 Window 2
 ```sh
-kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-local-data --force=True
+kubectl drain cl14607bcn1714k4v3im-ixif --ignore-daemonsets --delete-emptydir-data --force=True
 ```
 
 We will see that there are messages that eviction cannot be done
