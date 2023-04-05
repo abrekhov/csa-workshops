@@ -47,4 +47,10 @@ spec:
     name: nginx
   minReplicas: 1
   maxReplicas: 3
-  targetCPUUtilizationPercentage: 50
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
