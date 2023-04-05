@@ -24,7 +24,7 @@ watch kubectl get pod,svc,hpa -n demo-ns
 Sending curl to the IP address of the balancer
 
 ```sh
-URL=$(kubectl get svc nginx -n demo-ns -o json | jq -r .status.loadBalancer.ingress[0].ip)
+URL=$(kubectl get svc nginx -n demo-ns -o json | jq -r '.status.loadBalancer.ingress[0].ip')
 while true; do wget -q -O- http://$URL; done
 ```
 Let's release the load
