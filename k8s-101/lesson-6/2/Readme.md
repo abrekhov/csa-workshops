@@ -11,7 +11,7 @@ kubectl apply -f 02-dep.yaml
 let's see on which node the application was launched
 
 ```
-NODENAME=$(kubectl get po -o wide -n demo-ns -o=custom-columns=NAME:.metadata.name,node:.spec.nodeName -o json | jq -r .items[0].spec. nodeName)
+NODENAME=$(kubectl get po -o wide -n demo-ns -o=custom-columns=NAME:.metadata.name,node:.spec.nodeName -o json | jq -r '.items[0].spec.nodeName')
 kubectl describe node $NODENAME
 ```
 
