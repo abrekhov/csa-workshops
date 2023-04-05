@@ -18,7 +18,7 @@ watch kubectl describe svc -n demo-ns
 Sending curl to the IP address of the balancer
 
 ```
-URL=$(kubectl get svc probe -n demo-ns -o json | jq -r .status.loadBalancer.ingress[0].ip)
+URL=$(kubectl get svc probe -n demo-ns -o json | jq -r '.status.loadBalancer.ingress[0].ip')
 curl $URL/healthz
 ```
 
