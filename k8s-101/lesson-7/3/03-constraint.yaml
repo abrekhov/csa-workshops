@@ -7,4 +7,4 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
-        namespaces: ["demo-ns"]
+    namespaces: ["demo-ns"]
