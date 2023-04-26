@@ -67,7 +67,7 @@ with a default token is already better
 
 ```
 TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
-/ # curl -H “Authorization: Bearer $TOKEN” https://kubernetes/api/v1/ --insecure
+/ # curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/ --insecure
 Let's create an SA inside the k8s cluster and make it an admin:
 ```
 But for example, you can’t scroll through the pods
@@ -100,7 +100,7 @@ kubectl apply -f 02-pod-admin-sa.yaml
 Let's go to the pod and try to make requests to the kubernetes api from it
 
 ```
-kubectl exec -ti curl-admin --sh
+kubectl exec -ti curl-admin -- sh
 apk add curl
 ```
 
@@ -114,5 +114,7 @@ curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/defa
 Let's finish the lab
 
 ```
-kubectl delete all --all
+kubectl delete -f 02-pod-default-sa.yaml
+kubectl delete -f 02-pod-admin-sa.yaml
+kubectl delete -f 02-sa.yaml
 ```
