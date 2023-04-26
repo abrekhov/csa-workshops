@@ -1,7 +1,7 @@
-# Lesson 5 Advanced Scheduling
+# Lesson 6 Advanced Scheduling p2
 
 ```
-cd /lesson-5
+cd /lesson-6
 ```
 
 

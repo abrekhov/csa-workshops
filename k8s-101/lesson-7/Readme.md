@@ -1,7 +1,7 @@
-# Lesson 6 RBAC
+# Lesson 7 RBAC
 
 ```bash
-cd /lesson-5
+cd /lesson-7
 ```
 
 Execute in sequence

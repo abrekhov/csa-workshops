@@ -1,5 +1,5 @@
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: iam-user
@@ -9,4 +9,4 @@ roleRef:
   name: cluster-admin
 subjects:
   - kind: User
-    name: ajejaknpv691pncogst5
+    name: f080qpainnujjjql222h # sa-user with viewer role
