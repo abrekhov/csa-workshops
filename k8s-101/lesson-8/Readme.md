@@ -7,6 +7,6 @@ cd /lesson-9
 
 Execute in sequence
 
-- [install helm and nginx ingress](0/)
-- [task: helm](1/)
-- [config task](2/)
+- [Task: install helm and nginx ingress](0/)
+- [Task: helm](1/)
+- [Task: config task](2/)

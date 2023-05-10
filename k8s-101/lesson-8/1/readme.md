@@ -13,6 +13,8 @@ helm create mychart
 Let's see what's inside and then create a chart
 
 ```
+kubectl create namespace demo-ns
+kubectl config set-context --current --namespace demo-ns
 helm install helm-test mychart/
 helm ls
 ```
@@ -38,7 +40,7 @@ Let's see how the manifests with autoscaling enabled and disabled differ
 ```
 helm upgrade helm-test mychart/ --dry-run
 
-helm upgrade --set autoscaling.enabled=true helm-test mychart/
+helm upgrade --set autoscaling.enabled=true helm-test mychart/ --dry-run
 ```
 
 we see that HPA appeared here
@@ -76,25 +78,27 @@ helm upgrade --set autoscaling.enabled=true helm-test mychart/
 
 But it's not very pretty, especially when you need to pass a lot of variables. Let's try to pass a complex config
 
-
-
-
-
 ```
 helm upgrade --values new-values.yaml helm-test mychart/ --dry-run
 ```
 
 we see that ingress appeared here (and HPA remained)
 
-
-
 ```
 helm upgrade --values new-values.yaml helm-test mychart/
 kubectl get deploy,hpa,ingress,svc
 ```
 
-Let's finish the lab
+Check ingress
+
+```bash
+EXTERNAL_IP=`kubectl get svc ingress-nginx-controller -o json | jq -rMc '.status.loadBalancer.ingress[0].ip'`
+curl -H 'Host: chart-example.local' $EXTERNAL_IP
 ```
+
+Let's finish the lab
+
+```bash
 helm uninstall helm-test
 helm uninstall nginx-ingress
 kubectl delete all --all

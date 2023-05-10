@@ -1,7 +1,7 @@
 # Helm as a package manager
 
-```
-cd lesson-9/0
+```bash
+cd lesson-8/0
 ```
 
 Install helm ( https://helm.sh )
@@ -14,9 +14,9 @@ brew install helm
 install nginx ingress
 
 ```sh
-helm repo add nginx-stable https://helm.nginx.com/stable
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm install nginx-ingress nginx-stable/nginx-ingress
+helm install ingress-nginx ingress-nginx/ingress-nginx
 ```
 
 Let's look at the result
