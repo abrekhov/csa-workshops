@@ -1,7 +1,7 @@
 # Lesson 8
 
 ```
-cd /lesson-9
+cd /lesson-8
 ```
 
 
