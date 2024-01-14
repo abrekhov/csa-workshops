@@ -1,14 +1,23 @@
-resource "yandex_vpc_security_group" "ks_main" {
+resource "nebius_vpc_security_group" "ks_main" {
   name        = "ks-sg"
   description = "description for my security group"
-  network_id  = var.net_id
+  network_id  = var.network_id != null ? var.network_id : nebius_vpc_network.ks_network[0].id
+  folder_id   = var.folder_id != null ? var.folder_id : nebius_vpc_network.ks_network[0].folder_id
+
+#  ingress {
+#    protocol       = "TCP"
+#    description    = "Rule allows availability checks from load balancer's address range. It is required for the operation of a fault-tolerant cluster and load balancer services."
+#    v4_cidr_blocks = ["198.18.235.0/24", "198.18.248.0/24"]
+#    from_port      = 0
+#    to_port        = 65535
+#  }
 
   ingress {
-    protocol       = "TCP"
-    description    = "Rule allows availability checks from load balancer's address range. It is required for the operation of a fault-tolerant cluster and load balancer services."
-    v4_cidr_blocks = ["198.18.235.0/24", "198.18.248.0/24"]
-    from_port      = 0
-    to_port        = 65535
+    protocol          = "ANY"
+    description       = "Rule allows availability checks from load balancer's address range. It is required for the operation of a fault-tolerant cluster and load balancer services."
+    predefined_target = "loadbalancer_healthchecks"
+    from_port         = 0
+    to_port           = 65535
   }
   ingress {
     protocol          = "ANY"
@@ -20,7 +29,7 @@ resource "yandex_vpc_security_group" "ks_main" {
   ingress {
     protocol       = "ANY"
     description    = "Pod-pod and service service commx"
-    v4_cidr_blocks = yandex_vpc_subnet.ksnet_a.v4_cidr_blocks
+    v4_cidr_blocks = nebius_vpc_subnet.ks_subnet.v4_cidr_blocks
     from_port      = 0
     to_port        = 65535
   }
@@ -28,6 +37,7 @@ resource "yandex_vpc_security_group" "ks_main" {
   ingress {
     protocol       = "ICMP"
     description    = "Internetwork debug pings"
+    # FIXME: Where is defined 172.16/12?
     v4_cidr_blocks = ["172.16.0.0/12"] # , "10.0.0.0/8", "192.168.0.0/16"
   }
 
@@ -41,10 +51,11 @@ resource "yandex_vpc_security_group" "ks_main" {
 }
 
 
-resource "yandex_vpc_security_group" "ks_public_services" {
+resource "nebius_vpc_security_group" "ks_public_services" {
   name        = "k8s-public-services"
   description = "Allow for services etc. Allow only for node_group."
-  network_id  = var.net_id
+  network_id  = var.network_id != null ? var.network_id : nebius_vpc_network.ks_network[0].id
+  folder_id   = var.folder_id != null ? var.folder_id : nebius_vpc_network.ks_network[0].folder_id
 
   ingress {
     protocol       = "TCP"
@@ -55,10 +66,10 @@ resource "yandex_vpc_security_group" "ks_public_services" {
   }
 }
 
-# resource "yandex_vpc_security_group" "ks_nodes_ssh_access" {
+# resource "nebius_vpc_security_group" "ks_nodes_ssh_access" {
 #   name        = "k8s-nodes-ssh-access"
 #   description = "Allow ssh on nodegroup"
-#   network_id  = yandex_vpc_network.ksnet.id
+# network_id = var.network_id != null ? var.network_id : nebius_vpc_network.ks_network[0].id
 
 #   ingress {
 #     protocol       = "TCP"
@@ -68,10 +79,11 @@ resource "yandex_vpc_security_group" "ks_public_services" {
 #   }
 # }
 
-resource "yandex_vpc_security_group" "ks_master_whitelist" {
+resource "nebius_vpc_security_group" "ks_master_whitelist" {
   name        = "k8s-master-whitelist"
   description = "Allow API for ks master"
-  network_id  = var.net_id
+  network_id  = var.network_id != null ? var.network_id : nebius_vpc_network.ks_network[0].id
+  folder_id   = var.folder_id != null ? var.folder_id : nebius_vpc_network.ks_network[0].folder_id
 
   ingress {
     protocol       = "TCP"
@@ -90,7 +102,7 @@ resource "yandex_vpc_security_group" "ks_master_whitelist" {
   ingress {
     protocol          = "TCP"
     description       = "Allow TCP from workers"
-    security_group_id = yandex_vpc_security_group.ks_main.id
+    security_group_id = nebius_vpc_security_group.ks_main.id
     from_port         = 0
     to_port           = 65535
   }

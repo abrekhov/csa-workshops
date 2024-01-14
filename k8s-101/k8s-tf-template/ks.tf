@@ -1,21 +1,22 @@
-resource "yandex_kubernetes_cluster" "zonal_cluster" {
+resource "nebius_kubernetes_cluster" "zonal_cluster" {
   name        = var.cluster_name
   description = "zonal cluster"
 
-  network_id = var.net_id
+  folder_id  = var.folder_id != null ? var.folder_id : nebius_vpc_network.ks_network[0].folder_id
+  network_id = var.network_id != null ? var.network_id : nebius_vpc_network.ks_network[0].id
 
   master {
     zonal {
-      zone      = yandex_vpc_subnet.ksnet_a.zone
-      subnet_id = yandex_vpc_subnet.ksnet_a.id
+      zone      = nebius_vpc_subnet.ks_subnet.zone
+      subnet_id = nebius_vpc_subnet.ks_subnet.id
     }
 
     security_group_ids = [
-      yandex_vpc_security_group.ks_main.id,
-      yandex_vpc_security_group.ks_master_whitelist.id
+      nebius_vpc_security_group.ks_main.id,
+      nebius_vpc_security_group.ks_master_whitelist.id
     ]
 
-    version   = "1.23"
+    #version   = "1.27"
     public_ip = true
 
     maintenance_policy {
@@ -35,26 +36,26 @@ resource "yandex_kubernetes_cluster" "zonal_cluster" {
     }
   }
 
-  service_account_id      = yandex_iam_service_account.kssa.id
-  node_service_account_id = yandex_iam_service_account.kssa.id
+  service_account_id      = nebius_iam_service_account.ks-res-sa.id
+  node_service_account_id = nebius_iam_service_account.ks-node-sa.id
 
-  release_channel         = "RAPID"
-  network_policy_provider = "CALICO"
+  release_channel = "RAPID"
+  #network_policy_provider = "CALICO"
 }
 
-resource "yandex_kubernetes_node_group" "worker_nodes" {
-  cluster_id = yandex_kubernetes_cluster.zonal_cluster.id
+resource "nebius_kubernetes_node_group" "worker_nodes" {
+  cluster_id = nebius_kubernetes_cluster.zonal_cluster.id
   name       = "worker-nodes"
-  version    = "1.23"
+  #version    = "1.27"
   instance_template {
     platform_id = "standard-v3"
     network_interface {
       nat        = false
-      subnet_ids = ["${yandex_vpc_subnet.ksnet_a.id}"]
+      subnet_ids = ["${nebius_vpc_subnet.ks_subnet.id}"]
       security_group_ids = [
-        yandex_vpc_security_group.ks_main.id,
-        # yandex_vpc_security_group.ks_nodes_ssh_access.id,
-        yandex_vpc_security_group.ks_public_services.id
+        nebius_vpc_security_group.ks_main.id,
+        # nebius_vpc_security_group.ks_nodes_ssh_access.id,
+        nebius_vpc_security_group.ks_public_services.id
       ]
     }
 
@@ -73,7 +74,7 @@ resource "yandex_kubernetes_node_group" "worker_nodes" {
     }
 
     metadata = {
-      ssh-keys = "abrekhov:${file("~/.ssh/id_ed25519.pub")}"
+      ssh-keys = "${local.ssh_user}:${local.ssh_pubkey}"
     }
   }
 
@@ -81,15 +82,15 @@ resource "yandex_kubernetes_node_group" "worker_nodes" {
   scale_policy {
     auto_scale {
       # size = 3
-      min     = 3
-      max     = 5
-      initial = 3
+      min     = 1
+      max     = 3
+      initial = 1
     }
   }
 
   allocation_policy {
     location {
-      zone = yandex_vpc_subnet.ksnet_a.zone
+      zone = nebius_vpc_subnet.ks_subnet.zone
     }
   }
 

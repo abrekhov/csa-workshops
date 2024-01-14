@@ -1,12 +1,15 @@
 terraform {
   required_providers {
-    yandex = {
-      source  = "yandex-cloud/yandex"
-      version = ">=0.69.0"
+    nebius = {
+      source  = "terraform-registry.storage.ai.nebius.cloud/nebius/nebius"
+      version = ">= 0.6.0" # Optional
     }
   }
+  required_version = ">= 0.13"
 }
 
-provider "yandex" {
-  endpoint = "api.cloudil.com:443"
+provider "nebius" {
+  zone     = local.cloud_zone
+  endpoint = local.api_endpoint
+  #  storage_endpoint = local.storage_endpoint
 }
